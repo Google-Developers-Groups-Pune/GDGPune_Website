@@ -800,7 +800,7 @@ export function DevFestBraceField({
 
     function render(now: number) {
       frameId = 0;
-      if (!visible || document.hidden) return;
+      if (!ctx || !visible || document.hidden) return;
 
       ctx.clearRect(0, 0, width, height);
       if (ownLattice) drawLattice();
