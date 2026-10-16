@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #202124;
+  --color-surface: #f8f9fa;
+  --color-line: #e8eaed;
+  --color-line-strong: #dadce0;
+  --color-fg: #202124;
+  --color-fg-muted: #5f6368;
+  --color-fg-subtle: #70757a;
+  --color-fg-faint: #80868b;
+
+  --color-google-blue: #1a73e8;
+  --color-google-green: #34a853;
+  --color-google-yellow: #fbbc04;
+  --color-google-red: #ea4335;
+
+  --color-cyan: #1a73e8;
+  --color-cyan-pale: #d2e3fc;
+  --color-blue-pale: #e8f0fe;
+  --color-green-pale: #ceead6;
+  --color-yellow-pale: #feefc3;
+  --color-red-pale: #fce8e6;
+
+  --color-tag-yellow: #fbbc04;
+  --color-tag-green: #34a853;
+  --color-tag-pink: #ea4335;
+
+  --animate-cloud-float: cloud-float 6s ease-in-out infinite;
+  --animate-cloud-breathe: cloud-breathe 6s ease-in-out infinite;
+}
+
+@theme inline {
+  --font-sans: var(--font-google-sans-flex), "Google Sans", "Product Sans", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-google-sans-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@keyframes cloud-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes cloud-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+@keyframes gdg-logo-launch {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translate3d(0, 15px, 0) scale(.78);
+  }
+  68% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, -3px, 0) scale(1.035);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.gdg-logo-launch {
+  transform-origin: left center;
+  animation: gdg-logo-launch 1.1s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+@keyframes dot-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+.animate-dot-float {
+  animation: dot-float 1.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-dot-float {
+    animation: none;
+  }
+}
+
+@keyframes hero-title-arrive {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-title-drift {
+  0%, 100% { transform: translate3d(0, -3px, 0); }
+  50% { transform: translate3d(0, 3px, 0); }
+}
+
+@keyframes hero-title-accent-arrive {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.hero-title-float {
+  animation: hero-title-drift 6s ease-in-out 1.1s infinite;
+}
+
+.hero-title-reveal {
+  animation: hero-title-arrive 900ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.hero-title-accent-reveal {
+  animation: hero-title-accent-arrive 850ms ease-out 350ms both;
+}
+
+@keyframes devfest-title-arrive {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes devfest-content-float {
+  0%, 100% { transform: translate3d(0, -3px, 0); }
+  50% { transform: translate3d(0, 3px, 0); }
+}
+
+.devfest-content-float {
+  animation: devfest-content-float 6s ease-in-out 1.2s infinite;
+}
+
+.devfest-title-word {
+  display: inline-block;
+  animation: devfest-title-arrive 750ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.devfest-title-word-1 { animation-delay: 250ms; }
+.devfest-title-word-2 { animation-delay: 400ms; }
+.devfest-title-word-3 { animation-delay: 550ms; }
+
+.devfest-register-reveal {
+  animation: hero-title-arrive 750ms cubic-bezier(.2, .75, .25, 1) 650ms both;
+}
+
+/* Centered content column with the design's fluid side gutter. */
+@utility page-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 64px);
+}
+
+@utility section-y {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+/* Inline text links inside paragraphs. */
+@utility link-inline {
+  color: var(--color-google-blue);
+  text-underline-offset: 3px;
+  &:hover {
+    color: #174ea6;
+    text-decoration: underline;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Keep anchored sections clear of the sticky header. */
+  [id] {
+    scroll-margin-top: 88px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-google-blue);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-google-blue);
+    color: #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.pb-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pb-caret {
+  position: absolute;
+  z-index: 20;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    #4285f4 0%,
+    #fbbc04 52%,
+    #ea4335 82%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: opacity 300ms linear;
+}
+
+.pb-caret-blink {
+  animation: pb-caret-blink 1s steps(2, start) infinite;
+}
+
+@keyframes pb-caret-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Toggle Switch Widget */
+.toggle-switch {
+  position: relative;
+  width: 140px;
+  height: 70px;
+  background-color: #ffffff;
+  border: 4px solid #ffffff;
+  border-radius: 35px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-knob {
+  position: absolute;
+  left: 3px;
+  width: 64px;
+  height: 64px;
+  background-color: #4285F4; /* Google Blue */
+  border-radius: 32px;
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), width 0.12s ease-in-out;
+  z-index: 2;
+}
+
+.toggle-switch.animating .toggle-knob {
+  width: 78px;
+}
+
+.toggle-switch.checked .toggle-knob {
+  transform: translateX(70px);
+}
+
+.icon-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.globe-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gdg-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

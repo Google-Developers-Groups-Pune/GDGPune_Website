@@ -1,0 +1,35 @@
+.dfb-layer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+@keyframes dfb-float {
+  0%, 100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.dfb-canvas {
+  --dfb-blue: #4169e1;
+  --dfb-red: #d93025;
+  --dfb-black: #1a1b1f;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  animation: dfb-float 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dfb-canvas {
+    animation: none;
+  }
+}
