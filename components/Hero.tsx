@@ -89,7 +89,7 @@ export function Hero() {
               size="lg"
               className="border-line-strong bg-white hover:border-google-blue hover:bg-blue-pale"
             >
-              Explore the community <span aria-hidden="true">↗</span>
+              Explore the community
             </ButtonLink>
           </div>
 
