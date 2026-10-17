@@ -84,8 +84,8 @@ export function Hero() {
             </ButtonLink>
           </div>
 
-          <div className="mt-2 flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-fg-subtle">
-            <div aria-hidden="true" className="mt-1 flex shrink-0 items-center gap-1.5 py-1 sm:mt-0">
+          <div className="mt-2 flex flex-col items-start gap-2 text-sm sm:text-base text-fg-subtle">
+            <div aria-hidden="true" className="flex items-center gap-1.5 py-1">
               <span
                 className="size-2.5 rounded-full bg-google-blue animate-dot-float"
                 style={{ animationDelay: "0ms" }}
@@ -104,9 +104,11 @@ export function Hero() {
               />
             </div>
             <p className="leading-relaxed">
+              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">“</span>
               <span className="font-medium italic text-fg">
-                “A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.”
-              </span>{" "}
+                A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.
+              </span>
+              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">”</span>{" "}
               <span className="whitespace-nowrap font-semibold text-fg-muted">— Sundar Pichai</span>
             </p>
           </div>
