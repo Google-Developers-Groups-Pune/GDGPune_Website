@@ -7,7 +7,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const headline = "Build with the cloud community of Pune.";
-const footer = "gdgcloudpune.in";
+const footer = "gdgpune.in";
 
 // Fetches a static Google Sans Flex instance subset to the given text.
 // Falls back to the built-in font if Google Fonts is unreachable at build time.

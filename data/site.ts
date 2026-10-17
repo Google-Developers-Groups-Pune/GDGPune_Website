@@ -1,6 +1,6 @@
 export const site = {
   name: "GDG Pune",
-  url: "https://gdgcloudpune.in",
+  url: "https://gdgpune.in",
   description:
     "Google Developers Group (GDG) is where developers of all levels, interests, and background meet to learn new skills and share passion for technology.",
   email: "connect@gdgpune.in",
