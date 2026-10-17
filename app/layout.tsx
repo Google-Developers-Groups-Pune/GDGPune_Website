@@ -43,18 +43,27 @@ export const metadata: Metadata = {
     locale: "en_IN",
     title,
     description: site.description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GDG Pune — Start. Build. Grow. with the GDG Pune Community!",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@gdgcloudpune",
+    site: "@gdgpune",
     title,
     description: site.description,
+    images: ["/og-image.png"],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1e1e1e",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
