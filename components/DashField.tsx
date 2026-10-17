@@ -89,12 +89,15 @@ function colorAt(angle: number, palette: DashFieldPalette) {
 }
 
 function poissonPoints(width: number, height: number, count: number) {
+  if (width < 10 || height < 10) return [];
   const minimumDistance = 18;
   const cellSize = minimumDistance / Math.SQRT2;
   const columns = Math.ceil(width / cellSize);
   const rows = Math.ceil(height / cellSize);
   const grid = new Int32Array(columns * rows).fill(-1);
-  const targetPerSide = [Math.ceil(count / 2), Math.floor(count / 2)];
+  const maxCapacity = Math.max(1, Math.floor((width * height) / 450));
+  const targetCount = Math.min(count, maxCapacity);
+  const targetPerSide = [Math.ceil(targetCount / 2), Math.floor(targetCount / 2)];
   const sideCounts = [0, 0];
   const points: Array<{ x: number; y: number }> = [];
   const minimumDistanceSquared = minimumDistance ** 2;
@@ -127,8 +130,8 @@ function poissonPoints(width: number, height: number, count: number) {
   };
 
   let attempts = 0;
-  const maximumAttempts = Math.max(10000, count * 1000);
-  while (points.length < count && attempts < maximumAttempts) {
+  const maximumAttempts = Math.min(15000, Math.max(500, targetCount * 30));
+  while (points.length < targetCount && attempts < maximumAttempts) {
     attempts += 1;
     const side =
       sideCounts[0] >= targetPerSide[0]
@@ -147,64 +150,69 @@ function poissonPoints(width: number, height: number, count: number) {
       pointIndex;
     sideCounts[side] += 1;
   }
-  if (points.length !== count) {
-    throw new Error(
-      `DashField could not place ${count - points.length} particles with 18px spacing.`,
-    );
-  }
   return points;
 }
 
 function createParticles(width: number, height: number, dashCount: number) {
-  const microCount = Math.round(dashCount * microCountRatio);
-  const totalCount = dashCount + microCount;
-  const points = poissonPoints(width, height, totalCount);
-  const particles: Particle[] = [];
-  const dashTypes = [
-    { weight: 0.35, length: 4, thickness: 2 },
-    { weight: 0.45, length: 5.5, thickness: 2.3 },
-    { weight: 0.15, length: 7, thickness: 3 },
-    { weight: 0.05, length: 8.5, thickness: 3.2 },
-  ] as const;
-  const dashIndexes = new Set<number>();
-  while (dashIndexes.size < dashCount) {
-    dashIndexes.add(Math.floor(Math.random() * totalCount));
-  }
+  try {
+    if (width < 10 || height < 10) return [];
+    const microCount = Math.round(dashCount * microCountRatio);
+    const requestedTotal = dashCount + microCount;
+    const points = poissonPoints(width, height, requestedTotal);
+    const totalCount = points.length;
+    if (totalCount === 0) return [];
 
-  for (let index = 0; index < totalCount; index += 1) {
-    const point = points[index];
-    const dashType = dashIndexes.has(index);
-    const roll = Math.random();
-    let cumulativeWeight = 0;
-    const type = dashType
-      ? dashTypes.find((candidate) => {
-          cumulativeWeight += candidate.weight;
-          return roll < cumulativeWeight;
-        }) ?? dashTypes[dashTypes.length - 1]
-      : {
-          length: 0.5 + Math.random() * 0.5,
-          thickness: 0.5 + Math.random() * 0.3,
-          weight: 0,
-        };
-    particles.push({
-      x: point.x / width,
-      y: point.y / height,
-      depth: 0.25 + Math.random() * 0.75,
-      phase: Math.random() * twoPi,
-      period: 5 + Math.random() * 6,
-      breathing: 6 + Math.random() * 6,
-      swirl: (Math.random() - 0.5) * 0.01,
-      kind: dashType ? "dash" : "micro",
-      length: type.length,
-      thickness: type.thickness,
-      opacity: dashType ? 0.8 + Math.random() * 0.2 : 0.4,
-      offsetX: 0,
-      offsetY: 0,
-      velocityX: 0,
-      velocityY: 0,
-    });
+    const actualDashCount = Math.min(dashCount, totalCount);
+    const particles: Particle[] = [];
+    const dashTypes = [
+      { weight: 0.35, length: 4, thickness: 2 },
+      { weight: 0.45, length: 5.5, thickness: 2.3 },
+      { weight: 0.15, length: 7, thickness: 3 },
+      { weight: 0.05, length: 8.5, thickness: 3.2 },
+    ] as const;
+    const dashIndexes = new Set<number>();
+    while (dashIndexes.size < actualDashCount) {
+      dashIndexes.add(Math.floor(Math.random() * totalCount));
+    }
+
+    for (let index = 0; index < totalCount; index += 1) {
+      const point = points[index];
+      const dashType = dashIndexes.has(index);
+      const roll = Math.random();
+      let cumulativeWeight = 0;
+      const type = dashType
+        ? dashTypes.find((candidate) => {
+            cumulativeWeight += candidate.weight;
+            return roll < cumulativeWeight;
+          }) ?? dashTypes[dashTypes.length - 1]
+        : {
+            length: 0.5 + Math.random() * 0.5,
+            thickness: 0.5 + Math.random() * 0.3,
+            weight: 0,
+          };
+      particles.push({
+        x: point.x / width,
+        y: point.y / height,
+        depth: 0.25 + Math.random() * 0.75,
+        phase: Math.random() * twoPi,
+        period: 5 + Math.random() * 6,
+        breathing: 6 + Math.random() * 6,
+        swirl: (Math.random() - 0.5) * 0.01,
+        kind: dashType ? "dash" : "micro",
+        length: type.length,
+        thickness: type.thickness,
+        opacity: dashType ? 0.8 + Math.random() * 0.2 : 0.4,
+        offsetX: 0,
+        offsetY: 0,
+        velocityX: 0,
+        velocityY: 0,
+      });
+    }
+    return particles;
+  } catch (err) {
+    console.warn("[DashField] createParticles fallback:", err);
+    return [];
   }
-  return particles;
 }
 
 export function DashField({
@@ -240,36 +248,41 @@ export function DashField({
     let cursorNudge = 0;
     let clearZones: HTMLElement[] = [];
 
-    const desiredDashCount = () =>
-      count ??
-      Math.max(1, Math.round((700 * width * height) / (1900 * 850)));
+    const desiredDashCount = () => {
+      const areaScaled = Math.max(1, Math.round((700 * width * height) / (1900 * 850)));
+      return count ? Math.min(count, areaScaled) : areaScaled;
+    };
 
     const resize = () => {
-      const bounds = canvas.getBoundingClientRect();
-      const oldWidth = width;
-      const oldHeight = height;
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
-      pixelRatio = Math.min(2, window.devicePixelRatio || 1);
-      canvas.width = Math.round(width * pixelRatio);
-      canvas.height = Math.round(height * pixelRatio);
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      try {
+        const bounds = canvas.getBoundingClientRect();
+        const oldWidth = width;
+        const oldHeight = height;
+        width = Math.max(1, bounds.width);
+        height = Math.max(1, bounds.height);
+        pixelRatio = Math.min(2, window.devicePixelRatio || 1);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      const nextDashCount = Math.max(1, Math.floor(desiredDashCount()));
-      const nextTotalCount =
-        nextDashCount + Math.round(nextDashCount * microCountRatio);
-      if (particles.length !== nextTotalCount) {
-        particles = createParticles(width, height, nextDashCount);
-        startTime = performance.now();
-      } else {
-        const scaleX = width / oldWidth;
-        const scaleY = height / oldHeight;
-        for (const particle of particles) {
-          particle.offsetX *= scaleX;
-          particle.offsetY *= scaleY;
+        const nextDashCount = Math.max(1, Math.floor(desiredDashCount()));
+        const nextTotalCount =
+          nextDashCount + Math.round(nextDashCount * microCountRatio);
+        if (particles.length !== nextTotalCount) {
+          particles = createParticles(width, height, nextDashCount);
+          startTime = performance.now();
+        } else {
+          const scaleX = width / oldWidth;
+          const scaleY = height / oldHeight;
+          for (const particle of particles) {
+            particle.offsetX *= scaleX;
+            particle.offsetY *= scaleY;
+          }
         }
+        schedule();
+      } catch (err) {
+        console.warn("[DashField] resize error caught:", err);
       }
-      schedule();
     };
 
     const draw = (time: number) => {

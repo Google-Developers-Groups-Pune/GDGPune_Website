@@ -118,6 +118,9 @@ function makeSquareCurlyRaster(
   height: number,
   strokeWidth: number,
 ): Raster {
+  if (width <= 0 || height <= 0) {
+    return { edge: [], body: [], width: 0, height: 0 };
+  }
   const padding = 24;
   const rasterW = Math.ceil(width + padding * 2);
   const rasterH = Math.ceil(height + padding * 2);
@@ -126,7 +129,7 @@ function makeSquareCurlyRaster(
   raster.height = rasterH;
   const ctx = raster.getContext("2d", { willReadFrequently: true });
   if (!ctx) {
-    throw new Error("DevFestBraceField could not create offscreen canvas");
+    return { edge: [], body: [], width: 0, height: 0 };
   }
 
   ctx.translate(padding, padding);
@@ -625,6 +628,11 @@ export function DevFestBraceField({
         strokeThickness,
       );
 
+      if (!raster.edge.length) {
+        particles = [];
+        return;
+      }
+
       const countPerBrace = 450;
       const bodyCount = Math.round(countPerBrace * 0.12);
       const edgeCount = countPerBrace - bodyCount;
@@ -632,10 +640,11 @@ export function DevFestBraceField({
       const sampledEdge = sampleBlueNoise(raster.edge, edgeCount, 12, 3);
       const sampledBody = sampleBlueNoise(raster.body, bodyCount, 8, 3);
 
+      const edgeCountSafe = Math.max(1, sampledEdge.length);
       const cEdgeX =
-        sampledEdge.reduce((s, p) => s + p.x, 0) / sampledEdge.length;
+        sampledEdge.reduce((s, p) => s + p.x, 0) / edgeCountSafe;
       const cEdgeY =
-        sampledEdge.reduce((s, p) => s + p.y, 0) / sampledEdge.length;
+        sampledEdge.reduce((s, p) => s + p.y, 0) / edgeCountSafe;
       sampledEdge.sort(
         (a, b) =>
           Math.atan2(a.y - cEdgeY, a.x - cEdgeX) -

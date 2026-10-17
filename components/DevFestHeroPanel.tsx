@@ -10,7 +10,7 @@ export function DevFestHeroPanel() {
       data-antigravity-trigger
       className="relative isolate h-[550px] overflow-visible lg:h-[650px]"
     >
-      <DashField count={700} wide />
+      <DashField wide />
       <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-6 text-center">
         <div
           data-dotshape="braces"

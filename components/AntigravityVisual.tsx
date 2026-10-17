@@ -72,7 +72,7 @@ function createSprite(
 
   const spriteContext = sprite.getContext("2d");
   if (!spriteContext) {
-    throw new Error("Unable to create a 2D context for particle sprites.");
+    return sprite;
   }
 
   spriteContext.scale(pixelRatio, pixelRatio);

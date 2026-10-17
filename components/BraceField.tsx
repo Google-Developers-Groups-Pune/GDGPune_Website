@@ -99,13 +99,14 @@ function sampleBlueNoise(points: Point[], amount: number, initialGap: number) {
 }
 
 function braceRaster(width: number, height: number, mirror: boolean) {
+  if (width <= 0 || height <= 0) return { edge: [], body: [] };
   const lineWidth = height * 0.1;
   const padding = Math.ceil(lineWidth + 3);
   const raster = document.createElement("canvas");
   raster.width = Math.ceil(width + padding * 2);
   raster.height = Math.ceil(height + padding * 2);
   const context = raster.getContext("2d", { willReadFrequently: true });
-  if (!context) throw new Error("BraceField could not create its brace mask.");
+  if (!context) return { edge: [], body: [] };
 
   context.translate(padding, padding);
   if (mirror) {
