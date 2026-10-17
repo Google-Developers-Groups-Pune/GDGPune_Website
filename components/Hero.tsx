@@ -17,7 +17,7 @@ export function Hero() {
           <div className="w-full text-center">
             <p className="text-sm sm:text-base leading-relaxed text-fg-subtle">
               <span className="text-lg sm:text-xl font-bold text-ink select-none leading-none">“</span>
-              <span className="font-medium text-fg">A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
+              <span className="font-medium italic text-fg">A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
               <span className="text-lg sm:text-xl font-bold text-ink select-none leading-none">”</span>
               {" "}
               <span className="whitespace-nowrap font-semibold text-fg-muted">— Sundar Pichai</span>
@@ -34,8 +34,8 @@ export function Hero() {
               className="group flex h-[34px] items-center rounded-full border border-line-strong bg-white/85 px-3.5 shadow-[0_2px_12px_rgba(60,64,67,.06)] transition-all hover:border-google-blue hover:bg-blue-pale/50"
               title="Open Pune, India in Google Maps"
             >
-              <span className="font-mono text-[11px] font-semibold tracking-[.13em] text-fg-muted transition-colors group-hover:text-google-blue">
-                पुणे, भारत । Pune, India
+              <span className="font-mono text-[11px] font-bold tracking-[.13em] text-fg-muted transition-colors group-hover:text-google-blue">
+                पुणे, भारत | Pune, India
               </span>
             </a>
           </div>

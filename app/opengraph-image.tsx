@@ -76,12 +76,12 @@ export default async function OpengraphImage() {
             <span
               style={{
                 fontSize: 13,
-                fontWeight: 600,
+                fontWeight: 700,
                 color: "#5f6368",
                 letterSpacing: "0.08em",
               }}
             >
-              पुणे, भारत । Pune, India
+              पुणे, भारत | Pune, India
             </span>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default async function OpengraphImage() {
           }}
         >
           <span style={{ fontSize: 18, fontWeight: 700, color: "#202124", marginRight: 4 }}>“</span>
-          <span>A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
+          <span style={{ fontStyle: "italic" }}>A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
           <span style={{ fontSize: 18, fontWeight: 700, color: "#202124", marginLeft: 4, marginRight: 8 }}>”</span>
           <span style={{ fontWeight: 600, color: "#202124" }}>— Sundar Pichai</span>
         </div>
