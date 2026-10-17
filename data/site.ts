@@ -6,7 +6,6 @@ export const site = {
   email: "connect@gdgpune.in",
   bevyUrl: "https://gdg.community.dev/gdg-pune/",
   upcomingEventsUrl: "https://gdg.community.dev/gdg-pune/#upcoming-events",
-  ccdUrl: "https://ccd.gdgcloudpune.in",
   devfestUrl: "https://devfest.gdgpune.in",
   devfestProgramUrl: "https://developers.google.com/community/devfest",
   gdgProgramUrl: "https://developers.google.com/community/gdg",

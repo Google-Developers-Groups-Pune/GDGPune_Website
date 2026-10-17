@@ -57,8 +57,7 @@ GDGPune_Website/
 │   └── site.ts                   # Central content hub: URLs, focus tags, events, organizers
 ├── public/                       # Static images, SVG logos, favicons
 │   ├── gdg-pune-logo.svg         # Primary GDG Pune logo
-│   ├── gdg-logo.svg              # Google Developer Groups symbol
-│   └── gdg-cloud-pune-logo.png   # Chapter branding asset
+│   └── gdg-logo.svg              # Google Developer Groups symbol
 ├── next.config.ts                # Next.js configuration and image domains (Cloudinary)
 ├── package.json                  # Dependencies and build scripts
 └── tsconfig.json                 # TypeScript strict compiler config
