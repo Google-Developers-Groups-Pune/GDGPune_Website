@@ -9,7 +9,7 @@ type GdgToggleSwitchProps = {
 
 export function GdgToggleSwitch({
   className = "",
-  autoPlayInterval = 1800,
+  autoPlayInterval = 1200,
 }: GdgToggleSwitchProps) {
   const [isChecked, setIsChecked] = useState(false);
 
