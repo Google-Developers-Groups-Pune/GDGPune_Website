@@ -44,18 +44,26 @@ const icons: Record<SocialIconName, ReactNode> = {
     </svg>
   ),
   email: (
-    <svg viewBox="0 49.4 512 399.42" width={20} height={16} aria-hidden="true" className="block">
-      {/* Left Blue Section */}
-      <path fill="#4285F4" d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.91 34.91 34.91z" />
-      {/* Right Green Section */}
-      <path fill="#34A853" d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z" />
-      {/* Top-Right Yellow Section */}
-      <path fill="#FBBC04" d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z" />
-      {/* Central Red Flap ("M") */}
-      <path fill="#EA4335" d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z" />
-      {/* Darker Red Accent / Left Fold Shadow */}
-      <path fill="#C5221F" d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.18z" />
-    </svg>
+    <div
+      aria-hidden="true"
+      className="flex size-5 items-center justify-center rounded-[5.5px] bg-gradient-to-b from-[#3ea5ff] to-[#0066d6] p-[2.5px] shadow-[0_1px_3px_rgba(0,102,214,0.3)]"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="block size-full"
+      >
+        <path
+          d="M3 8.2v7.6c0 1.2.9 2.2 2.1 2.2h13.8c1.2 0 2.1-1 2.1-2.2V8.2l-9 6.3-9-6.3z"
+          fill="#ffffff"
+          fillOpacity="0.95"
+        />
+        <path
+          d="M3 7.2l9 6.3 9-6.3c-.3-.5-1-.9-2.1-.9H5.1c-1.1 0-1.8.4-2.1.9z"
+          fill="#ffffff"
+        />
+      </svg>
+    </div>
   ),
 };
 
@@ -69,7 +77,7 @@ const brandHoverStyles: Record<SocialIconName, string> = {
   youtube:
     "hover:border-[#FF0000] hover:bg-[#FF0000]/5 hover:shadow-[0_4px_14px_rgba(255,0,0,0.18)]",
   email:
-    "hover:border-google-blue hover:bg-blue-pale/40 hover:shadow-[0_4px_14px_rgba(66,133,244,0.18)]",
+    "hover:border-[#0066d6] hover:bg-[#0066d6]/5 hover:shadow-[0_4px_14px_rgba(0,102,214,0.18)]",
 };
 
 export function SocialLinks({ className }: { className?: string }) {
