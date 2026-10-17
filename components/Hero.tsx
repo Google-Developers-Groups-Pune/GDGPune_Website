@@ -15,10 +15,10 @@ export function Hero() {
       <div className="page-container relative z-10 grid grid-cols-1 items-center gap-10 pt-[clamp(48px,8vw,100px)] pb-[clamp(56px,8vw,104px)] lg:min-h-[min(820px,calc(100svh-72px))] lg:grid-cols-12 lg:gap-6">
         <div className="relative z-10 flex flex-col items-start gap-[22px] lg:col-span-6">
           <div className="w-full text-center">
-            <p className="text-sm sm:text-base leading-relaxed text-fg-subtle">
-              <span className="text-lg sm:text-xl font-bold text-ink select-none leading-none">“</span>
+            <p className="text-base sm:text-lg leading-relaxed text-fg-subtle">
+              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">“</span>
               <span className="font-medium italic text-fg">A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
-              <span className="text-lg sm:text-xl font-bold text-ink select-none leading-none">”</span>
+              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">”</span>
               {" "}
               <span className="whitespace-nowrap font-semibold text-fg-muted">— Sundar Pichai</span>
             </p>
