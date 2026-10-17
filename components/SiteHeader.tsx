@@ -158,10 +158,10 @@ export function SiteHeader() {
                 <a
                   href={link.href}
                   onClick={(event) => onMenuLinkClick(event, link.href)}
-                  className="flex min-h-16 items-center justify-between gap-4 py-3 text-[clamp(1.625rem,7vw,2.25rem)] font-semibold tracking-[-.01em] text-fg transition-colors hover:text-google-blue"
+                  className="flex min-h-12 items-center justify-between gap-4 py-3 text-sm font-medium text-fg transition-colors hover:text-google-blue"
                 >
                   {link.label}
-                  <span aria-hidden="true" className="text-2xl text-google-blue">
+                  <span aria-hidden="true" className="text-sm text-google-blue">
                     →
                   </span>
                 </a>
