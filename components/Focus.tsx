@@ -32,11 +32,11 @@ export function Focus() {
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-google-green" />
               <h3 className="text-[17px] font-bold text-ink">
-                Hands-on Workshops &amp; Codelabs
+                Hands-On Workshops
               </h3>
             </div>
             <p className="text-[14px] leading-[1.55] text-fg-muted">
-              Practical, code-and-build learning sessions.
+              Interactive, code-and-build learning sessions designed to transform theory into production-ready skills.
             </p>
           </div>
 
