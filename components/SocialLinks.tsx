@@ -44,17 +44,17 @@ const icons: Record<SocialIconName, ReactNode> = {
     </svg>
   ),
   email: (
-    <svg viewBox="0 0 24 24" width={20} height={20} fill="none" aria-hidden="true" className="block">
-      {/* Google Blue pillar */}
-      <path d="M2 7v10c0 1.1.9 2 2 2h3V9.5L2 7z" fill="#4285F4" />
-      {/* Google Green pillar */}
-      <path d="M22 7v10c0 1.1-.9 2-2 2h-3V9.5L22 7z" fill="#34A853" />
-      {/* Center Google Red folds */}
-      <path d="M12 14.5L2 7l2-1.5 8 6 8-6 2 1.5-10 7.5z" fill="#EA4335" />
-      {/* Top-left Google Dark Red corner */}
-      <path d="M4 5h3v4.5L2 7c0-1.1.9-2 2-2z" fill="#C5221F" />
-      {/* Top-right Google Yellow corner */}
-      <path d="M20 5h-3v4.5L22 7c0-1.1-.9-2-2-2z" fill="#FBBC05" />
+    <svg viewBox="0 49.4 512 399.42" width={20} height={16} aria-hidden="true" className="block">
+      {/* Left Blue Section */}
+      <path fill="#4285F4" d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.91 34.91 34.91z" />
+      {/* Right Green Section */}
+      <path fill="#34A853" d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z" />
+      {/* Top-Right Yellow Section */}
+      <path fill="#FBBC04" d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z" />
+      {/* Central Red Flap ("M") */}
+      <path fill="#EA4335" d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z" />
+      {/* Darker Red Accent / Left Fold Shadow */}
+      <path fill="#C5221F" d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.18z" />
     </svg>
   ),
 };
