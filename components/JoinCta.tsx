@@ -14,11 +14,14 @@ export function JoinCta() {
             Join our chapter on Bevy to get regular updates for Meetups, Hands-on Workshops, Codelabs, and flagship conferences like DevFest Pune!
           </p>
           <p className="text-base leading-normal text-pretty text-fg-muted">
-            Want to speak, partner or host a meetup? Email{" "}
+            Want to speak, partner or host a meetup? Email us at{" "}
             <a href={`mailto:${site.email}`} className="break-all text-google-blue underline underline-offset-2">
               {site.email}
             </a>
-            . No inbox black holes here—we read and reply to every single message. :)
+            .
+          </p>
+          <p className="text-base leading-normal text-pretty text-fg-muted">
+            No inbox black holes here—we read and reply to every single message. :)
           </p>
         </div>
         <ButtonLink href={site.bevyUrl} size="lg" className="w-full sm:w-auto">
