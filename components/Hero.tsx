@@ -14,15 +14,6 @@ export function Hero() {
     >
       <div className="page-container relative z-10 grid grid-cols-1 items-center gap-10 pt-[clamp(48px,8vw,100px)] pb-[clamp(56px,8vw,104px)] lg:min-h-[min(820px,calc(100svh-72px))] lg:grid-cols-12 lg:gap-6">
         <div className="relative z-10 flex flex-col items-start gap-[22px] lg:col-span-6">
-          <div className="w-full text-center">
-            <p className="text-base sm:text-lg leading-relaxed text-fg-subtle">
-              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">“</span>
-              <span className="font-medium italic text-fg">A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.</span>
-              <span className="text-xl sm:text-2xl font-bold text-ink select-none leading-none">”</span>
-              {" "}
-              <span className="whitespace-nowrap font-semibold text-fg-muted">— Sundar Pichai</span>
-            </p>
-          </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <GdgToggleSwitch />
@@ -93,8 +84,8 @@ export function Hero() {
             </ButtonLink>
           </div>
 
-          <div className="mt-2 flex items-center gap-2.5 text-sm text-fg-subtle">
-            <div aria-hidden="true" className="flex items-center gap-1.5 py-1">
+          <div className="mt-2 flex items-start sm:items-center gap-2.5 text-sm sm:text-base text-fg-subtle">
+            <div aria-hidden="true" className="mt-1 flex shrink-0 items-center gap-1.5 py-1 sm:mt-0">
               <span
                 className="size-2.5 rounded-full bg-google-blue animate-dot-float"
                 style={{ animationDelay: "0ms" }}
@@ -112,7 +103,12 @@ export function Hero() {
                 style={{ animationDelay: "540ms" }}
               />
             </div>
-            <span className="font-bold text-fg">Curious minds! Shared momentum!</span>
+            <p className="leading-relaxed">
+              <span className="font-medium italic text-fg">
+                “A diverse mix of voices leads to better discussions, decisions, and outcomes for everyone.”
+              </span>{" "}
+              <span className="whitespace-nowrap font-semibold text-fg-muted">— Sundar Pichai</span>
+            </p>
           </div>
         </div>
         <div className="lg:col-span-6">
