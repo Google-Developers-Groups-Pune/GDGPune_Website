@@ -14,6 +14,25 @@ export const site = {
   videoId: "V6s5kjSoqzw",
 } as const;
 
+export type DevFestVideoData = {
+  id: string;
+  start: number;
+  title: string;
+};
+
+export const devfestVideos: DevFestVideoData[] = [
+  {
+    id: "XG8Yo6XRpm0",
+    start: 58,
+    title: "DevFest Pune Highlights - Session 1",
+  },
+  {
+    id: "r3iez02s8KQ",
+    start: 112,
+    title: "DevFest Pune Highlights - Session 2",
+  },
+];
+
 export type NavLink = { href: string; label: string };
 
 export const navLinks: NavLink[] = [

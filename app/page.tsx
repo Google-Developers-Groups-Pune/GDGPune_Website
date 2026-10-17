@@ -1,5 +1,6 @@
 import { About } from "@/components/About";
 import { ChapterVideo } from "@/components/ChapterVideo";
+import { DevFestVideo } from "@/components/DevFestVideo";
 import { Events } from "@/components/Events";
 import { Focus } from "@/components/Focus";
 import { Hero } from "@/components/Hero";
@@ -19,6 +20,7 @@ export default function Home() {
         <Events />
         <Organizers />
         <ChapterVideo />
+        <DevFestVideo />
         <JoinCta />
       </main>
       <SiteFooter />
