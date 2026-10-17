@@ -15,18 +15,24 @@ const icons: Record<SocialIconName, ReactNode> = {
     </svg>
   ),
   instagram: (
-    <svg viewBox="0 0 24 24" width={20} height={20} fill="none" aria-hidden="true" className="block">
-      <defs>
-        <linearGradient id="ig-gradient-icon" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#bc1888" />
-          <stop offset="50%" stopColor="#dc2743" />
-          <stop offset="100%" stopColor="#f09433" />
-        </linearGradient>
-      </defs>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#ig-gradient-icon)" strokeWidth={2.2} />
-      <circle cx="12" cy="12" r="4.2" stroke="url(#ig-gradient-icon)" strokeWidth={2.2} />
-      <circle cx="17.5" cy="6.5" r="1.3" fill="url(#ig-gradient-icon)" />
-    </svg>
+    <div
+      aria-hidden="true"
+      className="flex size-5 items-center justify-center rounded-[5.5px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] p-[2.5px] shadow-[0_1px_3px_rgba(220,39,67,0.3)]"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#ffffff"
+        strokeWidth={2.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="block size-full"
+      >
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <circle cx="12" cy="12" r="4.2" />
+        <circle cx="17.5" cy="6.5" r="1.2" fill="#ffffff" stroke="none" />
+      </svg>
+    </div>
   ),
   youtube: (
     <svg viewBox="0 0 24 24" width={22} height={22} fill="none" aria-hidden="true" className="block">
