@@ -133,13 +133,13 @@ export default async function OpengraphImage() {
                 letterSpacing: "-0.04em",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", fontSize: 50, fontWeight: 900, color: "#111827" }}>
                 <span>Start</span>
-                <span style={{ color: "#34a853", margin: "0 6px" }}>.</span>
+                <div style={{ width: 11, height: 11, borderRadius: 999, background: "#34a853", margin: "0 10px" }} />
                 <span>Build</span>
-                <span style={{ color: "#fbbc04", margin: "0 6px" }}>.</span>
+                <div style={{ width: 11, height: 11, borderRadius: 999, background: "#fbbc04", margin: "0 10px" }} />
                 <span>Grow</span>
-                <span style={{ color: "#ea4335", margin: "0 6px" }}>.</span>
+                <div style={{ width: 11, height: 11, borderRadius: 999, background: "#ea4335", margin: "0 10px" }} />
               </div>
               <div style={{ display: "flex" }}>
                 <span style={{ color: "#5f6368", fontWeight: 600 }}>with the&nbsp;</span>
