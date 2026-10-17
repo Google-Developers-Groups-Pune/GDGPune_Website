@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type GdgToggleSwitchProps = {
   className?: string;
@@ -9,19 +9,12 @@ type GdgToggleSwitchProps = {
 
 export function GdgToggleSwitch({
   className = "",
-  autoPlayInterval = 1200,
+  autoPlayInterval = 1800,
 }: GdgToggleSwitchProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleState = () => {
     setIsChecked((prev) => !prev);
-    setIsAnimating(true);
-    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
-    animTimeoutRef.current = setTimeout(() => {
-      setIsAnimating(false);
-    }, 150);
   };
 
   useEffect(() => {
@@ -31,7 +24,6 @@ export function GdgToggleSwitch({
 
     return () => {
       clearInterval(timer);
-      if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
     };
   }, [autoPlayInterval]);
 
@@ -61,11 +53,7 @@ export function GdgToggleSwitch({
           transformOrigin: "center center",
         }}
       >
-        <div
-          className={`toggle-switch ${isChecked ? "checked" : ""} ${
-            isAnimating ? "animating" : ""
-          }`}
-        >
+        <div className={`toggle-switch ${isChecked ? "checked" : ""}`}>
           {/* Background Icons */}
           <div className="icon-container">
             {/* GDG Logo Side (Left) */}
