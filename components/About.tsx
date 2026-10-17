@@ -15,12 +15,19 @@ export function About() {
 
       <div className="flex flex-col gap-[18px] text-[17px] leading-[1.55] text-pretty text-fg-muted">
         <p>
-          Google Developer Groups (GDGs) are local communities for developers to connect and learn together. Anyone
+          <SmartLink href={site.googleCommunityUrl} className="link-inline">
+            Google Developer Groups (GDGs)
+          </SmartLink>{" "}
+          are local communities for developers to connect and learn together. Anyone
           interested in tech — from beginner to experienced developer — is welcome, and every group prides itself on
           being an inclusive environment.
         </p>
         <p>
-          There are 2,000+ community groups worldwide, each named after its city. Groups run meetups, codelabs, study
+          There are{" "}
+          <SmartLink href={site.communityMapUrl} className="link-inline">
+            2,000+ community groups worldwide
+          </SmartLink>
+          , each named after its city. Groups run meetups, codelabs, study
           jams, hackathons and flagship programs like{" "}
           <SmartLink href={site.buildWithAiUrl} className="link-inline">
             Build with AI

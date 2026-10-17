@@ -9,6 +9,8 @@ export const site = {
   devfestUrl: "https://devfest.gdgpune.in",
   devfestProgramUrl: "https://developers.google.com/community/devfest",
   gdgProgramUrl: "https://developers.google.com/community/gdg",
+  googleCommunityUrl: "https://developers.google.com/community",
+  communityMapUrl: "https://developers.google.com/community#developers-community-map",
   buildWithAiUrl: "https://developers.google.com/community/build-with-ai",
   puneMapUrl: "https://maps.app.goo.gl/tu25sgauUXwBRfDb6",
   videoId: "V6s5kjSoqzw",
