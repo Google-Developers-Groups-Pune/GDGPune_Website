@@ -220,7 +220,7 @@ export type SocialIconName = "linkedin" | "x" | "instagram" | "youtube" | "email
 export type SocialLink = { label: string; href: string; icon: SocialIconName };
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/gdg-pune/", icon: "linkedin" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/gdgpune", icon: "linkedin" },
   { label: "X (Twitter)", href: "https://www.twitter.com/gdgpune", icon: "x" },
   { label: "Instagram", href: "https://www.instagram.com/gdgpune", icon: "instagram" },
   { label: "YouTube", href: "https://www.youtube.com/@gdgpune", icon: "youtube" },
