@@ -12,8 +12,10 @@ export function GdgToggleSwitch({
   autoPlayInterval = 1200,
 }: GdgToggleSwitchProps) {
   const [isChecked, setIsChecked] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const toggleState = () => {
+    setHasInteracted(true);
     setIsChecked((prev) => !prev);
   };
 
@@ -53,7 +55,11 @@ export function GdgToggleSwitch({
           transformOrigin: "center center",
         }}
       >
-        <div className={`toggle-switch ${isChecked ? "checked" : ""}`}>
+        <div
+          className={`toggle-switch ${isChecked ? "checked" : ""} ${
+            hasInteracted ? (isChecked ? "slide-right" : "slide-left") : ""
+          }`}
+        >
           {/* Background Icons */}
           <div className="icon-container">
             {/* GDG Logo Side (Left) */}
