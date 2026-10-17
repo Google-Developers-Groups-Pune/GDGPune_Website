@@ -134,8 +134,8 @@ function makeSquareCurlyRaster(
 
   ctx.translate(padding, padding);
 
-  // Broad & bulgy stroke thickness (scales responsively on mobile):
-  const stroke = Math.max(20, Math.min(strokeWidth, Math.round(height * 0.115)));
+  // Broad & bulgy stroke thickness:
+  const stroke = Math.max(46, Math.min(strokeWidth, Math.round(height * 0.115)));
   const toothProj = Math.round(stroke * 0.92);
   const spineOuterX = toothProj;
   const spineInnerX = spineOuterX + stroke;
@@ -517,14 +517,20 @@ export function DevFestBraceField({
       }
     };
 
+    const getHitZone = () => {
+      const maxTiltOffset = Math.ceil((braceHeight / 2) * TILT_TAN);
+      return {
+        left: C.x - outerTipDistance - maxTiltOffset - hitPadding,
+        right: C.x + outerTipDistance + maxTiltOffset + hitPadding,
+        top: C.y - braceHeight / 2 - hitPadding,
+        bottom: C.y + braceHeight / 2 + hitPadding,
+      };
+    };
+
     const isPointerInside = (px = lastPointerX, py = lastPointerY) => {
-      const rect = wrapper.getBoundingClientRect();
-      const pad = hitPadding;
+      const hz = getHitZone();
       return (
-        px >= rect.left - pad &&
-        px <= rect.right + pad &&
-        py >= rect.top - pad &&
-        py <= rect.bottom + pad
+        px >= hz.left && px <= hz.right && py >= hz.top && py <= hz.bottom
       );
     };
 
@@ -547,46 +553,33 @@ export function DevFestBraceField({
       const textBlock = getTextBlockRect(wrapper);
       C = { x: textBlock.cx, y: textBlock.cy };
 
-      const W = Math.max(160, textBlock.width);
-      const H = Math.max(40, textBlock.height);
-      const isMobile = window.innerWidth < 768;
+      const W = textBlock.width;
+      const H = textBlock.height;
 
-      let eachBraceWidth: number;
-      let strokeThickness: number;
+      const unscaledBraceHeight = Math.max(resolvedMinHeight, 2.35 * H);
+      // Broad & bulgy bracket width:
+      const unscaledBraceWidth = Math.max(
+        190,
+        Math.round(unscaledBraceHeight * 0.46),
+      );
+      // Significantly reduced distance between the inner bracket tips (~250px):
+      const unscaledTipGap = 250;
+      const halfGap = unscaledTipGap / 2;
+      // Distance from center C.x to outer edge (including 24px raster padding):
+      const unscaledOuterTipDist = halfGap + unscaledBraceWidth + 24;
+      const unscaledSpan = unscaledOuterTipDist * 2;
+      let strokeThickness = Math.round(unscaledBraceHeight * 0.115);
 
-      if (isMobile) {
-        // Mobile proportions: compactly and cleanly frame "DevFest Pune 2026"
-        braceHeight = Math.min(360, Math.max(220, H * 2.1));
-        const availWidth = Math.max(280, window.innerWidth - 16);
-        // Leave comfortable room for headline in the middle:
-        const tipGap = Math.max(W + 16, 220);
-        const remainingSpace = Math.max(70, availWidth - tipGap);
-        eachBraceWidth = Math.min(75, Math.max(34, remainingSpace / 2));
-        outerTipDistance = tipGap / 2 + eachBraceWidth;
-        strokeThickness = Math.max(20, Math.round(braceHeight * 0.11));
-      } else {
-        const unscaledBraceHeight = Math.max(resolvedMinHeight, 2.35 * H);
-        const unscaledBraceWidth = Math.max(
-          190,
-          Math.round(unscaledBraceHeight * 0.46),
-        );
-        const unscaledTipGap = Math.max(W + 30, 250);
-        const halfGap = unscaledTipGap / 2;
-        const unscaledOuterTipDist = halfGap + unscaledBraceWidth + 24;
-        const unscaledSpan = unscaledOuterTipDist * 2;
-        strokeThickness = Math.round(unscaledBraceHeight * 0.115);
-
-        const viewportW = window.innerWidth;
-        let scale = 1;
-        if (viewportW < unscaledSpan + 24) {
-          scale = Math.max(0.4, (viewportW - 24) / unscaledSpan);
-        }
-
-        braceHeight = unscaledBraceHeight * scale;
-        outerTipDistance = unscaledOuterTipDist * scale;
-        eachBraceWidth = unscaledBraceWidth * scale;
-        strokeThickness *= scale;
+      const viewportW = window.innerWidth;
+      let scale = 1;
+      if (viewportW < unscaledSpan + 24) {
+        scale = Math.max(0.2, (viewportW - 24) / unscaledSpan);
       }
+
+      braceHeight = unscaledBraceHeight * scale;
+      outerTipDistance = unscaledOuterTipDist * scale;
+      const eachBraceWidth = unscaledBraceWidth * scale;
+      strokeThickness *= scale;
 
       const totalSpan = outerTipDistance * 2;
 
@@ -595,7 +588,7 @@ export function DevFestBraceField({
       const rawCanvasW = Math.ceil(totalSpan + margin * 2);
       const rawCanvasH = Math.ceil(braceHeight + margin * 2);
 
-      width = Math.min(rawCanvasW, window.innerWidth);
+      width = Math.min(rawCanvasW, viewportW);
       height = rawCanvasH;
 
       const wrapperRect = wrapper.getBoundingClientRect();
@@ -640,7 +633,7 @@ export function DevFestBraceField({
         return;
       }
 
-      const countPerBrace = isMobile ? 220 : 450;
+      const countPerBrace = 450;
       const bodyCount = Math.round(countPerBrace * 0.12);
       const edgeCount = countPerBrace - bodyCount;
 
@@ -931,33 +924,25 @@ export function DevFestBraceField({
       ctx.globalAlpha = 1;
     }
 
-    const isMobileDevice = () => {
-      return (
-        window.innerWidth < 768 ||
-        window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-        "ontouchstart" in window
-      );
-    };
-
     const onPointerMove = (e: PointerEvent) => {
       lastPointerX = e.clientX;
       lastPointerY = e.clientY;
       if (e.pointerType === "touch") return;
       if (isPointerInside(e.clientX, e.clientY)) {
         begin();
-      } else if (active && !isMobileDevice()) {
+      } else if (active) {
         releaseSoon();
       }
     };
 
     const onPointerLeave = () => {
-      if (active && !isMobileDevice()) releaseSoon();
+      if (active) releaseSoon();
     };
 
     const onFocusIn = () => begin();
     const onFocusOut = (e: FocusEvent) => {
       if (!e.relatedTarget || !wrapper.contains(e.relatedTarget as Node)) {
-        if (!isMobileDevice()) releaseSoon();
+        releaseSoon();
       }
     };
 
@@ -967,6 +952,8 @@ export function DevFestBraceField({
       lastPointerY = e.clientY;
       if (isPointerInside(e.clientX, e.clientY)) {
         begin();
+      } else {
+        releaseSoon(true);
       }
     };
 
@@ -981,38 +968,20 @@ export function DevFestBraceField({
 
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      if (!visible) {
-        if (frameId) {
-          window.cancelAnimationFrame(frameId);
-          frameId = 0;
-        }
-        if (active && isMobileDevice()) {
-          releaseSoon(true);
-        }
-      } else {
-        // Automatically trigger particle clustering when viewing DevFest on mobile!
-        if (isMobileDevice()) {
-          begin();
-        } else if (active || transitioning) {
-          schedule();
-        }
+      if (!visible && frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+      } else if (visible && (active || transitioning)) {
+        schedule();
       }
-    }, { threshold: 0.15 });
+    });
     intersectionObserver.observe(wrapper);
 
     if (document.fonts) {
-      document.fonts.ready.then(() => {
-        resize();
-        if (isMobileDevice() && visible) {
-          begin();
-        }
-      });
+      document.fonts.ready.then(resize);
     }
 
     resize();
-    if (isMobileDevice() && visible) {
-      begin();
-    }
 
     return () => {
       window.clearTimeout(leaveTimer);
